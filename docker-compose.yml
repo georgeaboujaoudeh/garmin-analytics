@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: garmin_postgres
+    environment:
+      POSTGRES_USER: garmin
+      POSTGRES_PASSWORD: garmin
+      POSTGRES_DB: garmin
+    ports:
+      - "5433:5432"
+    volumes:
+      - garmin_pgdata:/var/lib/postgresql/data
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: garmin_metabase
+    ports:
+      - "3000:3000"
+    volumes:
+      - metabase_data:/metabase-data
+    environment:
+      MB_DB_FILE: /metabase-data/metabase.db
+    depends_on:
+      - postgres
+
+  airflow-postgres:
+    image: postgres:16
+    container_name: airflow_postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow_pgdata:/var/lib/postgresql/data
+
+  airflow:
+    image: apache/airflow:2.9.3-python3.11
+    container_name: garmin_airflow
+    depends_on:
+      - airflow-postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'garmin-secret-key-123'
+      _AIRFLOW_DB_MIGRATE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: admin
+      _AIRFLOW_WWW_USER_PASSWORD: admin
+      _PIP_ADDITIONAL_REQUIREMENTS: "dbt-postgres==1.8.2 garminconnect==0.2.20 python-dotenv==1.0.1 psycopg2-binary==2.9.9"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./garmin_dbt:/opt/airflow/garmin_dbt
+      - ./ingest_garmin.py:/opt/airflow/scripts/ingest_garmin.py
+      - ./.env:/opt/airflow/.env
+    command: standalone
+
+volumes:
+  garmin_pgdata:
+  metabase_data:
+  airflow_pgdata:

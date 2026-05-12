@@ -1,0 +1,26 @@
+# Secrets
+.env
+.garth_tokens/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# dbt
+target/
+dbt_packages/
+logs/
+garmin_dbt/profiles.yml
+garmin_dbt/.user.yml
+
+# Airflow
+airflow/logs/
+airflow/plugins/
+
+# Docker volumes don't get committed, but good to be explicit
+*.db
+
+# IDE
+.vscode/
+.idea/

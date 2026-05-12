@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: fct_daily_training
+    description: "One row per day. Combines workout activities with overall daily physiological summary. The base mart for training analysis."
+    columns:
+      - name: date_day
+        description: "Calendar date."
+        tests:
+          - unique
+          - not_null
+      - name: had_workout
+        description: "Whether at least one Garmin activity was recorded that day."
+        tests:
+          - not_null
+      - name: training_intensity
+        description: "Bucket based on total aerobic training effect: rest / low / moderate / high."
+        tests:
+          - accepted_values:
+              values: ['rest', 'low', 'moderate', 'high']
+
+  - name: fct_weekly_training_load
+    description: "Per-day acute and chronic training load with ACWR scoring."
+    columns:
+      - name: date_day
+        tests:
+          - unique
+          - not_null
+      - name: load_status
+        tests:
+          - accepted_values:
+              values: ['insufficient_data', 'undertraining', 'sweet_spot', 'elevated', 'injury_risk']
+  - name: fct_hr_zones
+    description: "Per-activity HR zone breakdown with time and percentage in each zone, plus a session-profile classification."
+    columns:
+      - name: activity_id
+        tests:
+          - unique
+          - not_null
+      - name: session_profile
+        tests:
+          - accepted_values:
+              values: ['polarized_easy', 'high_intensity', 'gray_zone', 'mixed']            

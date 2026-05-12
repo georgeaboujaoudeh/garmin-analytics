@@ -1,0 +1,7 @@
+garminconnect==0.2.20
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+pandas
+dbt-core==1.8.2
+dbt-postgres==1.8.2
+garth

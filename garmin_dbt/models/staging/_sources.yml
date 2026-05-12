@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Raw Garmin Connect data loaded by ingest_garmin.py"
+    tables:
+      - name: activities
+        description: "One row per Garmin activity, full payload in JSONB"
+        columns:
+          - name: activity_id
+            tests:
+              - unique
+              - not_null
+      - name: daily_stats
+        description: "One row per day of overall Garmin daily summary"
+        columns:
+          - name: stat_date
+            tests:
+              - unique
+              - not_null
