@@ -4,6 +4,15 @@ End-to-end analytics pipeline built on personal Garmin Connect data. Demonstrate
 
 Built as a portfolio project to apply analytics engineering patterns (incremental models, source freshness, testing, modular SQL) to real, messy, time-series biometric data.
 
+## Dashboard
+
+![Training Performance Dashboard](docs/images/dashboard.png)
+![Training Performance Dashboard](docs/images/dashboard-2.png)
+
+## Orchestration
+
+![Airflow DAG](docs/images/airflow-dag.png)
+
 ## Stack
 
 | Layer | Tool |
