@@ -7,7 +7,6 @@ Built as a portfolio project to apply analytics engineering patterns (incrementa
 ## Dashboard
 
 ![Training Performance Dashboard](docs/images/dashboard.png)
-![Training Performance Dashboard](docs/images/dashboard-2.png)
 
 ## Orchestration
 
