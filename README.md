@@ -25,7 +25,7 @@ The same dbt marts also power a Power BI report, demonstrating tool flexibility 
 | Ingestion | Python + `garminconnect` library |
 | Warehouse | PostgreSQL 16 |
 | Transformation | dbt Core 1.8 |
-| Visualization | Metabase |
+| Visualization | Metabase, Power BI |
 | Orchestration | Apache Airflow 2.9 |
 | Infrastructure | Docker Compose |
 
