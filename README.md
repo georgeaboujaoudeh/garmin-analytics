@@ -8,6 +8,12 @@ Built as a portfolio project to apply analytics engineering patterns (incrementa
 
 ![Training Performance Dashboard](docs/images/dashboard.png)
 
+## Power BI dashboard
+
+The same dbt marts also power a Power BI report, demonstrating tool flexibility on a shared data model.
+
+![Power BI Dashboard](docs/images/powerbi-dashboard.png)
+
 ## Orchestration
 
 ![Airflow DAG](docs/images/airflow-dag.png)
